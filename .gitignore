@@ -1,4 +1,5 @@
 *.pkl
+*.svg
 *.csv
 *.keras
 *.pdf

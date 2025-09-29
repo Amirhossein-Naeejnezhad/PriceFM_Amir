@@ -1940,7 +1940,73 @@ def concatenate_forecasts_across_timesteps(forecasts_dict, y_test_dict, QUANTILE
     return concatenated_forecasts_dict, concatenated_y_test_dict
 
 
+def live_plot_sliding_window_multi_timestep(y_pred_list, y_test_original, window_size, stop_index, region_name):
 
+    y_q10, y_q50, y_q90 = y_pred_list
+    N = len(y_test_original)
+    assert all(len(arr) == N for arr in [y_q10, y_q50, y_q90]), "Input arrays must have the same length"
+    
+    # Create directory for saving plots
+    plot_dir = f'Figure/{region_name}'
+    os.makedirs(plot_dir, exist_ok=True)
+    
+    for i in range(N - window_size + 1):
+        if i + window_size > stop_index + 1:
+            break
+
+        x = np.arange(i, i + window_size)
+
+        y_true_win = y_test_original[i:i + window_size]
+        y_q10_win = y_q10[i:i + window_size]
+        y_q50_win = y_q50[i:i + window_size]
+        y_q90_win = y_q90[i:i + window_size]
+
+        # Set dynamic y-limits with padding
+        y_min = np.min([y_true_win, y_q10_win, y_q90_win])
+        y_max = np.max([y_true_win, y_q10_win, y_q90_win])
+        y_pad_min = y_min * 1.1 if y_min < 0 else y_min * 0.9
+        y_pad_max = y_max * 1.1 if y_max > 0 else y_max * 0.9
+        
+        # Plot
+        clear_output(wait=True)
+        fig, ax = plt.subplots(figsize=(10.3, 2.3))
+        plt.rcParams['font.family'] = 'Times New Roman'
+        plt.rcParams['font.size'] = 13
+
+        ax.plot(x, y_true_win, label="True", color="black", linewidth=1.1)
+        ax.plot(x, y_q50_win, label=r"Q$_{0.5}$", color="#F05D06", linewidth=1.1, alpha=0.9)
+        ax.fill_between(x, y_q10_win, y_q90_win, alpha=0.9, label=r"Q$_{0.1}$-Q$_{0.9}$", color="#6A6657", linewidth=1.1)
+
+        ax.set_ylabel(f"Price (€/MWh)")
+        yticks = np.linspace(y_pad_min, y_pad_max, 4)
+        ax.set_yticks(yticks)
+        ax.set_ylim(yticks[0], yticks[-1])
+
+        ax.set_xlabel("Testing sample index")
+        xticks = np.linspace(np.min(x), np.max(x), 16)
+        ax.set_xticks(xticks)
+        ax.set_xlim(np.min(x), np.max(x))
+
+        ax.tick_params(axis='both', direction='out', width=1.1)
+
+        ax.spines['right'].set_visible(False)
+        ax.spines['top'].set_visible(False)
+        ax.spines['left'].set_linewidth(1.1)
+        ax.spines['bottom'].set_linewidth(1.1)
+
+        fig.legend(
+            loc="lower center",
+            ncol=3,
+            fontsize=11,
+            frameon=False,
+            bbox_to_anchor=(0.525, -0.07)
+        )
+        plt.tight_layout()
+        plt.savefig(f'{plot_dir}/{region_name}_{i}.png', dpi=300, bbox_inches='tight', transparent=True)
+        plt.show()
+        time.sleep(0.00001)  # Adjust for speed
+
+        
 def create_gif_from_images(image_dir, output_path, prefix="", duration=0.01, size=None):
 
     image_files = [os.path.join(image_dir, f) for f in os.listdir(image_dir)
