@@ -1843,3 +1843,147 @@ def run_all(data_splits, look_back_windows, prediction_horizons, input_regions, 
                             p = Process(target=run_single_config, args=(args,))
                             p.start()
                             p.join()
+
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+import time
+import os
+from IPython.display import clear_output
+from PIL import Image
+import imageio as iio
+from natsort import natsorted
+
+def load_probabilistic_forecasts_multi_timestep(best_model, region_data, input_regions, output_regions, QUANTILES):
+
+    # Prepare test inputs
+    test_inputs = {}
+    for region in input_regions:
+        test_inputs[f"{region}_input_price"] = region_data[region]["X_test_price"]
+        test_inputs[f"{region}_input_res"] = region_data[region]["X_test_res"]
+    
+    # Stack true test prices across output_regions
+    y_test_stacked = np.stack(
+        [region_data[r]["Y_test_price"] for r in output_regions],
+        axis=1
+    )
+    
+    # Predict with the model - returns list of arrays, each with shape (n_samples, output_dim, n_quantiles)
+    y_pred_list = best_model.predict(test_inputs)
+    
+    # Handle single vs multiple regions prediction output
+    arr = np.array(y_pred_list)
+    n_regions = len(output_regions)
+    
+    if arr.ndim == 3:
+        # single-region case
+        y_pred_list = [arr]
+    elif arr.ndim == 4 and arr.shape[0] == n_regions:
+        # multi-region case
+        y_pred_list = [arr[r] for r in range(n_regions)]
+    
+    # Inverse transform predictions and true values for each region
+    forecasts_dict = {}
+    y_test_dict = {}
+    
+    for r, region in enumerate(output_regions):
+        # True values - inverse transform
+        y_true_scaled = y_test_stacked[:, r, :]  # shape: (n_samples, output_dim)
+        y_true_original = region_data[region]['y_scaler'].inverse_transform(y_true_scaled)
+        
+        # Predictions - inverse transform each quantile
+        y_pred_scaled_region = y_pred_list[r]  # shape: (n_samples, output_dim, n_quantiles)
+        n_samples, output_dim, n_quantiles = y_pred_scaled_region.shape
+        
+        # Inverse transform each quantile slice
+        region_pred_rescaled_slices = []
+        for q_idx in range(n_quantiles):
+            slice_scaled = y_pred_scaled_region[..., q_idx]
+            slice_rescaled = region_data[region]['y_scaler'].inverse_transform(slice_scaled)
+            region_pred_rescaled_slices.append(slice_rescaled)
+        
+        # Stack back to shape (n_samples, output_dim, n_quantiles)
+        region_pred_rescaled = np.stack(region_pred_rescaled_slices, axis=-1)
+        
+        forecasts_dict[region] = region_pred_rescaled
+        y_test_dict[region] = y_true_original
+    
+    print(f"✅ Loaded forecasts for {len(output_regions)} regions")
+    print(f"   - Forecast shape per region: {region_pred_rescaled.shape}")
+    print(f"   - True values shape per region: {y_true_original.shape}")
+    
+    return forecasts_dict, y_test_dict
+
+def concatenate_forecasts_across_timesteps(forecasts_dict, y_test_dict, QUANTILES):
+
+    concatenated_forecasts_dict = {}
+    concatenated_y_test_dict = {}
+    
+    for region in forecasts_dict.keys():
+        # Get forecasts and true values for this region
+        forecasts = forecasts_dict[region]  # shape: (n_samples, 24, n_quantiles)
+        y_true = y_test_dict[region]        # shape: (n_samples, 24)
+        
+        n_samples, timesteps_per_day, n_quantiles = forecasts.shape
+        
+        # Concatenate across samples to create one long timeline
+        # Each sample represents one day, so we concatenate days sequentially
+        concatenated_forecasts = forecasts.reshape(-1, n_quantiles)  # shape: (n_samples * 24, n_quantiles)
+        concatenated_y_true = y_true.reshape(-1)  # shape: (n_samples * 24,)
+        
+        concatenated_forecasts_dict[region] = concatenated_forecasts
+        concatenated_y_test_dict[region] = concatenated_y_true
+        
+        print(f"Region {region}: Concatenated {n_samples} days × {timesteps_per_day} hours = {len(concatenated_y_true)} total timesteps")
+    
+    return concatenated_forecasts_dict, concatenated_y_test_dict
+
+
+
+def create_gif_from_images(image_dir, output_path, prefix="", duration=0.01, size=None):
+
+    image_files = [os.path.join(image_dir, f) for f in os.listdir(image_dir)
+                   if f.endswith(".png") and f.startswith(prefix)]
+    image_files = natsorted(image_files)
+
+    if not image_files:
+        raise ValueError(f"No matching images in {image_dir} with prefix '{prefix}'")
+
+    frames = []
+    for img_path in image_files:
+        img = Image.open(img_path).convert("RGB")
+        if size:
+            img = img.resize(size, Image.LANCZOS)  # Resize to target size
+        frames.append(img)  # Keep as PIL Image objects
+
+    # Save as GIF using PIL
+    frames[0].save(
+        output_path, 
+        save_all=True, 
+        append_images=frames[1:], 
+        duration=int(duration * 1000),  # Convert to milliseconds
+        loop=0
+    )
+    print(f"GIF created successfully: {output_path}")
+
+
+def gif_conversion(region_name):
+
+    plot_dir = f"Figure/{region_name}"
+    first_image_path = f"{plot_dir}/{region_name}_0.png"
+    
+    if os.path.exists(first_image_path):
+        first_image = Image.open(first_image_path)
+        target_size = first_image.size  # e.g., (360, 230)
+
+        create_gif_from_images(
+            image_dir=plot_dir,
+            output_path=f"Figure/{region_name}_GIF.gif",
+            prefix=f"{region_name}_",
+            duration=0.1,  # 100ms per frame for better viewing
+            size=target_size  # Make all frames same size
+        )
+    else:
+        print(f"No images found for region {region_name}. Please run visualization first.")
+

@@ -47,8 +47,7 @@ if __name__ == "__main__":
 
     # when first time excecute the main, run the following function "generate_region_data_pickles"
     # to generate intermediate data to avoid repeated processing; otherwise, comment it out.
-    generate_region_data_pickles(data_splits, look_back_windows, prediction_horizons, 
-                                all_regions, european_energy_df, input_features, pre_path)
+    generate_region_data_pickles(data_splits, look_back_windows, prediction_horizons, all_regions, european_energy_df, input_features, pre_path)
     
     # run the main function: load processed intermediate data, train, validate, and test the model
     run_all(data_splits, look_back_windows, prediction_horizons, 

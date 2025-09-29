@@ -1,9 +1,10 @@
 # PriceFM
-Foundation Model for Probabilistic Day-Ahead Electricity Price Forecasting
+Foundation Model for Probabilistic (Day-Ahead) Electricity Price Forecasting
 
-📄 Paper link: https://www.arxiv.org/pdf/2508.04875
+🦊 Summary page: https://runyao-yu.github.io/PriceFM/
+🌋 Paper link: https://www.arxiv.org/pdf/2508.04875
 
-![Description of Image](Model/model_structure.PNG)
+![Description of Image](Figure/PriceFM_structure.PNG)
 
 
 ---
@@ -16,10 +17,12 @@ The project directory is structured as follows:
 
     PriceFM/
     ├── Data/
+    ├── Figure/
     ├── Model/
     ├── Result/
     ├── PriceFM.py
     ├── Main.py
+    ├── Tutorial.ipynb
     ├── README.md
 
 The file `README.md` specifies the required package versions.
@@ -28,8 +31,8 @@ To facilitate reproducibility and accessibility, we have streamlined the entire 
 
 ### ✅ Step 1: Prepare the Folder Structure
 
-Create a folder named `PriceFM`, along with subfolders `Data`, `Model`, and `Result`.  
-Place the energy dataset `EU_Spatiotemporal_Energy_Data.csv` into `Data`, and place `PriceFM.py` inside the `PriceFM` folder.
+Ensure you have a folder named `PriceFM`, along with subfolders `Figure`, `Data`, `Model`, and `Result`.  
+Ensure that the energy dataset `EU_Spatiotemporal_Energy_Data.csv` is in the `Data` folder, and `PriceFM.py` in the `PriceFM` folder.
 
 ### ✅ Step 2: Run the Pipeline
 
@@ -44,7 +47,14 @@ The script `PriceFM.py` contains all necessary functions and classes.
 After execution, check:
 - `Model/` for saved model weights  
 - `Result/` for evaluation metrics and outputs
+- `Figure/` for checking forecasts versus true price
 
+### ✅ Optional: Run the Tutorial.ipynb
+
+To better understand how to use our codes:
+- MIMO/MISO/SISO forecasting setup
+- Optimizing curvature/spatial hyperparameter
+- Generating dynamic (GIFs) to show forecased versus true prices
 
 ---
 
