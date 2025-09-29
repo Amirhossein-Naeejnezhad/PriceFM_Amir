@@ -2,6 +2,7 @@
 Foundation Model for Probabilistic (Day-Ahead) Electricity Price Forecasting
 
 🦊 Summary page: https://runyao-yu.github.io/PriceFM/
+
 🌋 Paper link: https://www.arxiv.org/pdf/2508.04875
 
 ![Description of Image](Figure/PriceFM_structure.PNG)
