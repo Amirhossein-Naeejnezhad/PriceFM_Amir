@@ -30,8 +30,10 @@ The project directory is structured as follows:
     ├── Figure/
     ├── Model/
     ├── Result/
-    ├── PriceFM.py
-    ├── Main.py
+    ├── PriceFM/
+        ├── data.py
+        ├── model.py
+        ├── evaluation.py
     ├── Tutorial.ipynb
     ├── README.md
 
@@ -39,12 +41,12 @@ The file `README.md` specifies the required package versions.
 
 To facilitate reproducibility and accessibility, we have streamlined the entire pipeline into just three simple steps:
 
-### ✅ Step 1: Download the dataset
+### 🌵 Step 1: Download the dataset
 
 You can download the dataset from https://huggingface.co/datasets/RunyaoYu/PriceFM/tree/main 
 Ensure that the energy dataset `FINAL.csv` is in the `Data` folder.
 
-### ✅ Step 2: Run the Pipeline
+### 🌵 Step 2: Run the Pipeline
 
 Run `Tutorial.ipynb` to:
 - Preprocess the energy data
@@ -52,7 +54,7 @@ Run `Tutorial.ipynb` to:
 
 Note that there are two phases, i.e. pretraining without graph topology and full-training with topology. 
 
-### ✅ Step 3: Check Results
+### 🌵 Step 3: Check Results
 
 After execution, check:
 - `Model/` for saved model weights  
