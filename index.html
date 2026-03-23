@@ -209,17 +209,18 @@
 
 
 <!-- 6.5 Model image -->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body has-text-centered">
-      <!-- Replace video with image -->
-      <img src="static/images/PriceFM_structure.PNG" alt="Teaser Image">
-      <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
-        Structure of PriceFM. 
-        The input features are passed into a MoE projection layer to produce the regional representations. 
-        The regional representations are stacked to form the shared spatial representation S, which is multiplied with the sparse
-        graph mask to produce the spatial representation, which is then fed into hierarchical quantile heads to produce probabilistic forecasts.
-      </h2>
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="has-text-centered">
+        <img src="static/images/PriceFM_structure.PNG" alt="Teaser Image">
+        <h2 class="subtitle has-text-centered">
+          Structure of PriceFM. 
+          The input features are passed into a MoE projection layer to produce the regional representations. 
+          The regional representations are stacked to form the shared spatial representation S, which is multiplied with the sparse
+          graph mask to produce the spatial representation, which is then fed into hierarchical quantile heads to produce probabilistic forecasts.
+        </h2>
+      </div>
     </div>
   </div>
 </section>
@@ -227,45 +228,33 @@
 
 
 
-<!-- 7. Image carousel -->
+<!-- 7. Image -->
 <section class="hero is-small">
   <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item">
-          <img src="static/images/Energy_data.PNG" alt="MY ALT TEXT"/>
-          <h2 class="subtitle has-text-centered">
-            European-level energy data in 2024, averaged across regions.
-            <b>a</b> Electricity price. Price spikes sharply during the morning and evening peak, dip around midday.
-            <b>b</b> Forecasted load. Load exhibits a double-peak each day.
-            <b>c</b> Forecasted solar power generation. Solar is zero overnight, rises in a smooth bell curve to a strong midday maximum, then falls back to zero by dusk.
-            <b>d</b> Forecasted wind power generation (onshore and offshore). Wind lacks a daily pattern, fluctuates with high-frequency spikes.
-          </h2>
-        </div>
-      </div>
+    <div class="container has-text-centered">
+      <img src="static/images/Energy_data.PNG" alt="Energy data" />
+      <h2 class="subtitle has-text-centered">
+        European-level energy data in 2024, averaged across regions.
+        <b>a</b> Electricity price. Price spikes sharply during the morning and evening peak, dip around midday.
+        <b>b</b> Forecasted load. Load exhibits a double-peak each day.
+        <b>c</b> Forecasted solar power generation. Solar is zero overnight, rises in a smooth bell curve to a strong midday maximum, then falls back to zero by dusk.
+        <b>d</b> Forecasted wind power generation (onshore and offshore). Wind lacks a daily pattern, fluctuates with high-frequency spikes.
+      </h2>
     </div>
   </div>
 </section>
-<!-- End image carousel -->
 
-
-
-<!-- 8. Results carousel -->
+<!-- 8. Results -->
 <section class="hero is-small">
   <div class="hero-body">
-    <div class="container">
-      <div id="model-carousel" class="carousel results-carousel">
-        <div class="item">
-          <img src="static/images/Model_comparison.PNG" alt="Model comparison results"/>
-          <h2 class="subtitle has-text-centered">
-            Results of model comparison.
-          </h2>
-        </div>
-      </div>
+    <div class="container has-text-centered">
+      <img src="static/images/Model_comparison.PNG" alt="Model comparison results" />
+      <h2 class="subtitle has-text-centered">
+        Results of model comparison.
+      </h2>
     </div>
   </div>
 </section>
-<!-- End image carousel -->
 
 
 

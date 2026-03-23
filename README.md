@@ -14,7 +14,7 @@ Foundation Model for Probabilistic (Day-Ahead) Electricity Price Forecasting
 ### Mar 2026
 - Dataset extended from **2022–2025** to **2022–2026**
 - Temporal resolution increased from **hourly** to **quarter-hourly**
-- Evaluation expanded from **1 test fold in 2025** to **3 test folds in 2026**
+- Evaluation expanded from **1 test fold in 2024-2025** to **3 test folds in 2025-2026**
 - Model architecture upgraded to a **Mixture-of-Experts (MoE)** design
 - Graph mask simplified from a decay formulation to a **sparse mask**
 
