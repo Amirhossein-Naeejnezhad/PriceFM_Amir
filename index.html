@@ -181,9 +181,24 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We introduce a comprehensive and up-to-date dataset across 24 European countries (38 regions), spanning from 2022 to 2025. 
-            Building on this groundwork, we propose PriceFM, a spatiotemporal foundation model that integrates graph-based inductive biases to capture spatial interdependencies across interconnected electricity markets. The model is designed for multi-region, multi-timestep, and multi-quantile probabilistic electricity price forecasting. 
-            Extensive experiments and ablation studies confirm the model's effectiveness, consistently outperforming competitive baselines and highlighting the importance of spatial context in electricity markets. 
+            Electricity price forecasting in Europe presents
+            unique challenges due to the continent's increasingly integrated and physically interconnected
+            power market. While recent advances in foundation models have led to substantial improvements in general time series forecasting, most existing approaches do not incorporate prior graph
+            knowledge from the transmission topology, which can limit their ability to exploit meaningful crossregion dependencies in interconnected power systems, motivating a domain-specific foundation model. In this paper, we address this gap by
+            first introducing a comprehensive and up-to-date
+            dataset across 24 European countries (38 regions),
+            spanning from 2022-01-01 to 2026-01-01. Building on this groundwork, we propose PRICEFM,
+            a probabilistic foundation model pretrained on
+            this large dataset. Specifically, PRICEFM maps
+            each region's price and exogenous features into
+            a comparable latent embedding via a shared
+            Mixture-of-Experts (MoE) projection layer, then
+            injects prior graph knowledge by constructing
+            a sparse graph mask derived from transmission
+            topology. Across a large-scale European benchmark, PriceFM achieves strong performance and
+            demonstrates superior generalization under both
+            zero-shot and full-shot evaluation compared with
+            multiple competitive baselines.
           </p>
         </div>
       </div>
@@ -258,13 +273,6 @@
           Results of model comparison.
         </h2>
         </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/Ablation_studies.PNG" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          Results of ablation studies.
-          </h2>
-      </div>
   </div>
 </div>
 </div>
@@ -279,10 +287,10 @@
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <p>If you use our code or find our paper useful, please cite:</p>
-    <pre><code>@misc{yu2025pricefm,
+    <pre><code>@misc{YuPriceFM,
       title={PriceFM: Foundation Model for Probabilistic Electricity Price Forecasting}, 
       author={Runyao Yu and Chenhui Gu and Jochen Stiasny and Qingsong Wen and Wasim Sarwar Dilov and Lianlian Qi and Jochen L. Cremer},
-      year={2025},
+      year={2026},
       eprint={2508.04875},
       archivePrefix={arXiv},
       primaryClass={cs.CE},

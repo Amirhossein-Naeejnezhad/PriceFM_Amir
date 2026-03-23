@@ -7,9 +7,18 @@ Foundation Model for Probabilistic (Day-Ahead) Electricity Price Forecasting
 
 ![Description of Image](Figure/PriceFM_structure.PNG)
 
-
 ---
 
+## 📢 Updates
+
+### Mar 2026
+- Dataset extended from **2022–2025** to **2022–2026**
+- Temporal resolution increased from **hourly** to **quarter-hourly**
+- Evaluation expanded from **1 test fold in 2025** to **3 test folds in 2026**
+- Model architecture upgraded to a **Mixture-of-Experts (MoE)** design
+- Graph mask simplified from a decay formulation to a **sparse mask**
+
+---
 
 ## 🚀 Quick Start
 
@@ -30,35 +39,26 @@ The file `README.md` specifies the required package versions.
 
 To facilitate reproducibility and accessibility, we have streamlined the entire pipeline into just three simple steps:
 
-### ✅ Step 1: Prepare the Folder Structure
+### ✅ Step 1: Download the dataset
 
-Ensure you have a folder named `PriceFM`, along with subfolders `Figure`, `Data`, `Model`, and `Result`.  
-Ensure that the energy dataset `EU_Spatiotemporal_Energy_Data.csv` is in the `Data` folder, and `PriceFM.py` in the `PriceFM` folder.
+You can download the dataset from https://huggingface.co/datasets/RunyaoYu/PriceFM/tree/main 
+Ensure that the energy dataset `FINAL.csv` is in the `Data` folder.
 
 ### ✅ Step 2: Run the Pipeline
 
-Run `Main.py` to:
+Run `Tutorial.ipynb` to:
 - Preprocess the energy data
 - Train, validate, and test the PriceFM model
 
-The script `PriceFM.py` contains all necessary functions and classes.
+Note that there are two phases, i.e. pretraining without graph topology and full-training with topology. 
 
 ### ✅ Step 3: Check Results
 
 After execution, check:
 - `Model/` for saved model weights  
 - `Result/` for evaluation metrics and outputs
-- `Figure/` for checking forecasts versus true price
-
-### ✅ Optional: Run the Tutorial.ipynb
-
-To better understand how to use our codes:
-- MIMO/MISO/SISO forecasting setup
-- Optimizing curvature/spatial hyperparameter
-- Generating dynamic (GIFs) to show forecased versus true prices
 
 ---
-
 
 ## 📦 Environment & Dependencies
 
