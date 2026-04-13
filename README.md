@@ -13,8 +13,8 @@ Foundation Model for Probabilistic (Day-Ahead) Electricity Price Forecasting
 
 ### April 2026
 
-- Pretrained model is now available
-- A tutorial in fine-tuning the pretrained model is provided (FM_Tutorial.ipynb)
+- Pretrained model (`model/PhaseI_best.keras`) is now available
+- A tutorial in fine-tuning the pretrained model is provided (`FM_Tutorial.ipynb`)
 - `requirements.txt` is updated to ensure robustness of package version
 
 ### March 2026
@@ -58,7 +58,7 @@ Ensure that the energy dataset `FINAL.csv` is in the `Data` folder.
 Run `FM_Tutorial.ipynb` to:
 - [optional] if you want to use Google Colab, read `Google_Colab_Instruction.pdf`
 - Preprocess the energy data
-- Use or Fine-tune the PriceFM model
+- Use or fine-tune the PriceFM model
 
 ### 🌵 Step 3: Check Results
 
@@ -72,18 +72,17 @@ After execution, check:
 
 This project has been tested with the following environment (see `requirements.txt`):
 
-- **Python 3.10.15**
-- `numpy==1.25.2`
+- **Python 3.11.13**
+- `numpy==2.0.2`
 - `pandas==2.2.2`
-- `scikit-learn==1.5.2`
-- `scipy==1.14.1`
-- `tensorflow==2.16.2`
-- `protobuf==4.23.2`
-- `h5py==3.12.1`
-- `joblib==1.4.2`
-- `setuptools==65.6.3`
+- `scikit-learn==1.6.1`
+- `scipy==1.15.3`
+- `tensorflow==2.18.0`
+- `h5py==3.14.0`
+- `joblib==1.5.1`
+- `setuptools==75.2.0`
 
-Use the following comment to pip install:
+Use the following command to install dependencies:
 
 ```bash
-pip install numpy==1.25.2 pandas==2.2.2 scikit-learn==1.5.2 scipy==1.14.1 tensorflow==2.16.2 protobuf==4.23.2 h5py==3.12.1 joblib==1.4.2 setuptools==65.6.3
+pip install numpy==2.0.2 pandas==2.2.2 scikit-learn==1.6.1 scipy==1.15.3 tensorflow==2.18.0 h5py==3.14.0 joblib==1.5.1 setuptools==75.2.0
