@@ -1,6 +1,3 @@
 *.pkl
 *.svg
-*.csv
-*.keras
-*.pdf
 __pycache__
