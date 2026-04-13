@@ -14,7 +14,7 @@ Foundation Model for Probabilistic (Day-Ahead) Electricity Price Forecasting
 ### April 2026
 
 - Pretrained model is now available
-- A tutorial in fine-tuning the pretrained model is provided
+- A tutorial in fine-tuning the pretrained model is provided (FM_Tutorial.ipynb)
 - `requirements.txt` is updated to ensure robustness of package version
 
 ### March 2026
@@ -40,8 +40,9 @@ The project directory is structured as follows:
         ├── data.py
         ├── model.py
         ├── evaluation.py
-    ├── Tutorial.ipynb
+    ├── FM_Tutorial.ipynb
     ├── README.md
+    ├── requirements.txt
 
 The file `README.md` specifies the required package versions.
 
@@ -54,11 +55,10 @@ Ensure that the energy dataset `FINAL.csv` is in the `Data` folder.
 
 ### 🌵 Step 2: Run the Pipeline
 
-Run `Tutorial.ipynb` to:
+Run `FM_Tutorial.ipynb` to:
+- [optional] if you want to use Google Colab, read `Google_Colab_Instruction.pdf`
 - Preprocess the energy data
-- Train, validate, and test the PriceFM model
-
-Note that there are two phases, i.e. pretraining without graph topology and full-training with topology. 
+- Use or Fine-tune the PriceFM model
 
 ### 🌵 Step 3: Check Results
 
@@ -86,4 +86,4 @@ This project has been tested with the following environment (see `requirements.t
 Use the following comment to pip install:
 
 ```bash
-pip install numpy==1.25.2 pandas==2.1.4 scikit-learn==1.5.1 scipy==1.13.1 tensorflow==2.16.2 protobuf>=3.19.0 h5py>=3.1.0 joblib setuptools
+pip install numpy==1.25.2 pandas==2.2.2 scikit-learn==1.5.2 scipy==1.14.1 tensorflow==2.16.2 protobuf==4.23.2 h5py==3.12.1 joblib==1.4.2 setuptools==65.6.3

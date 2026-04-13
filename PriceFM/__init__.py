@@ -40,3 +40,17 @@ __all__ = ["graph_adj_matrix", "read_dataset",
 ]
 
 __version__ = "0.1.0"
+
+from .evaluation import (
+    load_corresponding_date_data,
+    normalize_and_forecast,
+    produce_testing_metrics,
+    visualize_forecast,
+)
+
+__all__ += [
+    "load_corresponding_date_data",
+    "normalize_and_forecast",
+    "produce_testing_metrics",
+    "visualize_forecast",
+]
