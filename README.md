@@ -11,7 +11,13 @@ Foundation Model for Probabilistic (Day-Ahead) Electricity Price Forecasting
 
 ## 📢 Updates
 
-### Mar 2026
+### April 2026
+
+- Pretrained model is now available
+- A tutorial in fine-tuning the pretrained model is provided
+- `requirements.txt` is updated to ensure robustness of package version
+
+### March 2026
 - Dataset extended from **2022–2025** to **2022–2026**
 - Temporal resolution increased from **hourly** to **quarter-hourly**
 - Evaluation expanded from **1 test fold in 2024-2025** to **3 test folds in 2025-2026**
@@ -64,18 +70,18 @@ After execution, check:
 
 ## 📦 Environment & Dependencies
 
-This project has been tested with the following environment:
+This project has been tested with the following environment (see `requirements.txt`):
 
-- **Python 3.9.20**
+- **Python 3.10.15**
 - `numpy==1.25.2`
-- `pandas==2.1.4`
-- `scikit-learn==1.5.1`
-- `scipy==1.13.1`
+- `pandas==2.2.2`
+- `scikit-learn==1.5.2`
+- `scipy==1.14.1`
 - `tensorflow==2.16.2`
-- `protobuf>=3.19.0`
-- `h5py>=3.1.0`
-- `joblib`
-- `setuptools`
+- `protobuf==4.23.2`
+- `h5py==3.12.1`
+- `joblib==1.4.2`
+- `setuptools==65.6.3`
 
 Use the following comment to pip install:
 
